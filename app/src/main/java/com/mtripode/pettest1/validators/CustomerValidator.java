@@ -51,7 +51,7 @@ public class CustomerValidator implements Validator {
             hasError = true;
         }
 
-        if (verifyUserExists(customer)) {
+        if (verifyUserExists(customer, elements)) {
             hasError = true;
             editEmailAddress.setError("Este email ya esta siendo utilizado.");
         }
@@ -81,7 +81,7 @@ public class CustomerValidator implements Validator {
         return hasError;
     }
 
-    private boolean verifyUserExists(Customer customer) {
+    private boolean verifyUserExists(Customer customer, HashMap<String, Object> elements) {
         CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
         Customer cusEmail = null;
 
@@ -94,6 +94,7 @@ public class CustomerValidator implements Validator {
 
         }
         catch (ConnectionError e){
+            elements.put("connectionError", e.getMessage());
             return true;
         }
 
