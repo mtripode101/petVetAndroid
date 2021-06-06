@@ -13,6 +13,7 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
@@ -103,6 +104,12 @@ public class RegisterActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
 
             startActivity(intent);
+        }
+        else{
+            if (elements.containsKey("connectionError")){
+                String mjs = (String) elements.get("connectionError");
+                Toast.makeText(this,mjs, 2000).show();
+            }
         }
     }
 }
