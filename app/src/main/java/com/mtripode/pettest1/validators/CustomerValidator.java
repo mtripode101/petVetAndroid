@@ -2,9 +2,11 @@ package com.mtripode.pettest1.validators;
 
 import android.graphics.Color;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mtripode.pettest1.abscomponent.StringUtils;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.errors.ConnectionError;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 
 import java.util.Date;
@@ -81,12 +83,20 @@ public class CustomerValidator implements Validator {
 
     private boolean verifyUserExists(Customer customer) {
         CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
-        Customer cusEmail = createCustomerService.findCustomerSync(customer);
+        Customer cusEmail = null;
 
-        if (cusEmail != null && (cusEmail.getEmail().equalsIgnoreCase(CustomerValidator.MORE_THAN_ONE)
-                || cusEmail.getEmail().equalsIgnoreCase(customer.getEmail()))) {
+        try{
+            cusEmail = createCustomerService.findCustomerSync(customer);
+            if (cusEmail != null && (cusEmail.getEmail().equalsIgnoreCase(CustomerValidator.MORE_THAN_ONE)
+                    || cusEmail.getEmail().equalsIgnoreCase(customer.getEmail()))) {
+                return true;
+            }
+
+        }
+        catch (ConnectionError e){
             return true;
         }
+
 
         return false;
     }
