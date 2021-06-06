@@ -1,7 +1,10 @@
 package com.mtripode.pettest1.service;
 
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.errors.ConnectionError;
 import com.mtripode.pettest1.utils.HttpUtils;
+
+import java.net.ConnectException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -10,7 +13,7 @@ import retrofit2.Response;
 public class CustomerServiceImpl implements CustomerService {
 
     @Override
-    public Customer createCustomer(Customer customer) {
+    public Customer createCustomer(Customer customer) throws ConnectionError {
         Call<Customer> userCall = HttpUtils.getRestInterface().createEmployee(customer);
         Customer customerRet = null;
         userCall.enqueue(new Callback<Customer>() {
@@ -31,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findCustomer(Customer customer) {
+    public Customer findCustomer(Customer customer) throws ConnectionError {
         Call<Customer> userCall = HttpUtils.getRestInterface().findCustomer(customer.getEmail());
         Customer customerRet = null;
         userCall.enqueue(new Callback<Customer>() {
@@ -53,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findCustomerSync(Customer customer) {
+    public Customer findCustomerSync(Customer customer) throws ConnectionError {
         Call<Customer> userCall = HttpUtils.getRestInterface().findCustomer(customer.getEmail());
         Customer customerRet = null;
 
@@ -66,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         catch (Exception ex)
         {
-            return new Customer();
+            throw new ConnectionError(ex.getMessage());
         }
 
         return customerRet;
