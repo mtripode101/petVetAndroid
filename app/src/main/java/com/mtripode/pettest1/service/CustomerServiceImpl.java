@@ -16,7 +16,7 @@ public class CustomerServiceImpl implements CustomerService {
         userCall.enqueue(new Callback<Customer>() {
             @Override
             public void onResponse(Call<Customer> call, Response<Customer> response) {
-                System.err.println("Here");
+                System.err.println("Here 123");
                 int statusCode = response.code();
                 Customer customer2 = response.body();
             }
