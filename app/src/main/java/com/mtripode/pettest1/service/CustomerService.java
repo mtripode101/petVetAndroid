@@ -7,6 +7,8 @@ public interface CustomerService {
 
     public Customer createCustomer (Customer customer) throws ConnectionError;
 
+    public Customer createCustomerSyn (Customer customer) throws ConnectionError;
+
     public Customer findCustomer (Customer customer) throws ConnectionError;
 
     public Customer findCustomerSync (Customer customer) throws ConnectionError;

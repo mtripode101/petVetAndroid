@@ -100,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
         this.customer.setEmail(this.editEmailAddress.getText().toString());
         if (Boolean.FALSE.equals(this.customerValidator.validate(customer, elements))){
             CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
-            createCustomerService.createCustomer(this.customer);
+            createCustomerService.createCustomerSyn(this.customer);
             Intent intent = new Intent(this, LoginActivity.class);
 
             startActivity(intent);
