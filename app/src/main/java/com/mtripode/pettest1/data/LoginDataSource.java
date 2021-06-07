@@ -23,8 +23,7 @@ public class LoginDataSource {
             Customer customer = new Customer();
             customer.setUsername(username);
             customer.setPassword(password);
-            Customer customerRes =  customerService.findCustomerByUserName(customer);
-            return new Result.Success<>(customerRes);
+            return new Result.Success<>(customer);
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }
