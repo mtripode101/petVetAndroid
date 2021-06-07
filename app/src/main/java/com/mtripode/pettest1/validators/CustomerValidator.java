@@ -46,12 +46,18 @@ public class CustomerValidator implements Validator {
             textViewOwner.setError("Este campo es requerido");
             hasError = true;
         }
+
+        if (verifyUserExists(customer, elements)) {
+            hasError = true;
+            textViewOwner.setError("Este usuario ya esta siendo utilizado.");
+        }
+
         if (validateUsername(customer.getUsername())) {
             textViewOwner.setError("Usar entre 6 y 32 caracteres.");
             hasError = true;
         }
 
-        if (verifyUserExists(customer, elements)) {
+        if (validateGeneralEmail(customer, elements)) {
             hasError = true;
             editEmailAddress.setError("Este email ya esta siendo utilizado.");
         }
@@ -81,7 +87,7 @@ public class CustomerValidator implements Validator {
         return hasError;
     }
 
-    private boolean verifyUserExists(Customer customer, HashMap<String, Object> elements) {
+    private boolean validateGeneralEmail(Customer customer, HashMap<String, Object> elements) {
         CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
         Customer cusEmail = null;
 
@@ -117,4 +123,26 @@ public class CustomerValidator implements Validator {
         if (birthday == null) {
         }
     }
+
+    private boolean verifyUserExists(Customer customer, HashMap<String, Object> elements) {
+        CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
+        Customer cusEmail = null;
+        try{
+            cusEmail = createCustomerService.findCustomerByUserName(customer);
+            if (cusEmail != null && cusEmail.getUsername().equals(customer.getUsername())) {
+                return true;
+            }
+
+        }
+        catch (ConnectionError e){
+            elements.put("connectionError", e.getMessage());
+            return true;
+        }
+
+
+        return false;
+    }
+
+
+
 }

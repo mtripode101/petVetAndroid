@@ -96,4 +96,24 @@ public class CustomerServiceImpl implements CustomerService {
 
         return customerRet;
     }
+
+    @Override
+    public Customer findCustomerByUserName(Customer customer) throws ConnectionError {
+        Call<Customer> userCall = HttpUtils.getRestInterface().findCustomerByUserName(customer.getUsername());
+        Customer customerRet = null;
+
+        try
+        {
+            Response<Customer> response = userCall.execute();
+            customerRet = response.body();
+
+            //API response
+        }
+        catch (Exception ex)
+        {
+            throw new ConnectionError(ex.getMessage());
+        }
+
+        return customerRet;
+    }
 }
