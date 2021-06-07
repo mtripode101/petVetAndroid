@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -29,6 +30,9 @@ import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.ui.login.LoginViewModel;
 import com.mtripode.pettest1.ui.login.LoginViewModelFactory;
 import com.mtripode.pettest1.ui.register.RegisterActivity;
+import com.mtripode.pettest1.validators.LoginValidator;
+
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -46,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
         final Button registerButton = findViewById(R.id.buttonRegister);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -74,12 +81,21 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
+                    HashMap<String, Object> elements = new HashMap<String, Object>();
+                    LoginValidator loginValidator = new LoginValidator();
+                    if (loginValidator.validate(loginResult.getSuccess().getCustomer(), elements )){
+                        updateUiWithUser(loginResult.getSuccess());
+                        setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
+                        //Complete and destroy login activity once successful
+                        finish();
+                    }
+                    else{
+                        showLoginError(elements);
+                    }
+
+                }
+
             }
         });
 
@@ -144,5 +160,9 @@ public class LoginActivity extends AppCompatActivity {
     private void callRegisterActivity (){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    private void showLoginError ( HashMap<String, Object> elements){
+        Toast.makeText(getApplicationContext(), (String) elements.get(LoginValidator.CUSTOMER_ERROR), Toast.LENGTH_SHORT).show();
     }
 }

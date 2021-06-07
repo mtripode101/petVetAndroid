@@ -1,6 +1,7 @@
 package com.mtripode.pettest1.service;
 
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.entity.Doctor;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -14,6 +15,10 @@ public interface RestInterface {
     @Headers("Content-Type: application/json")
     @POST("rest/customer/create")
     Call<Customer> createEmployee(@Body Customer body);
+
+    @Headers("Content-Type: application/json")
+    @POST("rest/doctor/create")
+    Call<Doctor> createDoctor(@Body Doctor body);
 
     @GET("rest/customer/findByEmail/{email}")
     Call<Customer> findCustomer(@Path("email") String email);

@@ -1,6 +1,7 @@
 package com.mtripode.pettest1.service;
 
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.entity.Doctor;
 import com.mtripode.pettest1.errors.ConnectionError;
 import com.mtripode.pettest1.utils.HttpUtils;
 
@@ -52,6 +53,28 @@ public class CustomerServiceImpl implements CustomerService {
             }
 
             return customerRet;
+        }
+    }
+
+    @Override
+    public Customer createDoctorSyn(Doctor doctor) throws ConnectionError {
+        {
+            Call<Doctor> userCall = HttpUtils.getRestInterface().createDoctor(doctor);
+            Doctor doctorRet = null;
+
+            try
+            {
+                Response<Doctor> response = userCall.execute();
+                doctorRet = response.body();
+
+                //API response
+            }
+            catch (Exception ex)
+            {
+                throw new ConnectionError(ex.getMessage());
+            }
+
+            return doctorRet;
         }
     }
 

@@ -17,12 +17,14 @@ import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.service.RestInterface;
 import com.mtripode.pettest1.utils.HttpUtils;
+import com.mtripode.pettest1.validators.LoginValidator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
@@ -51,11 +53,11 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        Result<Customer> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            Customer data = ((Result.Success<Customer>) result).getData();
+            loginResult.setValue(new LoginResult(new LoggedInUserView(data)));
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
