@@ -40,7 +40,7 @@ public class Customer {
 
     private String sex;
 
-    private boolean isEnable;
+    private boolean enable;
 
     public String getUsername() {
         return username;
@@ -95,7 +95,7 @@ public class Customer {
     }
 
     public boolean isEnable() {
-        return isEnable;
+        return enable;
     }
 
     public void setUsername(String username) {
@@ -151,6 +151,6 @@ public class Customer {
     }
 
     public void setEnable(boolean enable) {
-        isEnable = enable;
+        this.enable = enable;
     }
 }
