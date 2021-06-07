@@ -18,4 +18,6 @@ public interface RestInterface {
     @GET("rest/customer/findByEmail/{email}")
     Call<Customer> findCustomer(@Path("email") String email);
 
+    @GET("rest/customer/findByUsername/{username}")
+    Call<Customer> findCustomerByUserName(@Path("username") String username);
 }

@@ -12,4 +12,6 @@ public interface CustomerService {
     public Customer findCustomer (Customer customer) throws ConnectionError;
 
     public Customer findCustomerSync (Customer customer) throws ConnectionError;
+
+    public Customer findCustomerByUserName (Customer customer) throws ConnectionError;
 }
