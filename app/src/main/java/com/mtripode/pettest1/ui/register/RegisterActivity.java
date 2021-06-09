@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.entity.Doctor;
 import com.mtripode.pettest1.errors.ConnectionError;
 import com.mtripode.pettest1.errors.ValidatorError;
 import com.mtripode.pettest1.helpers.ServiceRestHelper;
@@ -42,9 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editTextCellPhone;
     private EditText editTextCedula;
     private CheckBox registerDoctorCheckBox;
-
-    private Customer customer;
-
     private CustomerValidator customerValidator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,24 +110,29 @@ public class RegisterActivity extends AppCompatActivity {
         elements.put("textViewLastName",this.textViewLastName);
         elements.put("editEmailAddress",this.editEmailAddress);
         elements.put("editTextCellPhone",this.editTextCellPhone);
+        elements.put("editTextCedula", this.editTextCedula);
 
-        this.customer = new Customer();
-        this.customer.setUsername(this.textViewOwner.getText().toString());
-        this.customer.setName(this.textViewName.getText().toString());
-        this.customer.setSex("Male");
-        this.customer.setPasswordConfirm(this.editConfirmPassword.getText().toString());
-        this.customer.setPassword(this.editPassword.getText().toString());
-        this.customer.setLastName(this.textViewLastName.getText().toString());
-        this.customer.setCelphone1(this.editTextCellPhone.getText().toString());
+        Customer customer = new Customer();
+        setCustomerCommonData(customer);
+        if (this.registerDoctorCheckBox.isChecked()){
+            Doctor doctor = (Doctor) customer;
+            setCustomerCommonData(customer);
+            doctor.setCedula(this.editTextCedula.getText().toString());
+            validateUser(elements, doctor);
+        }else{
+            validateUser(elements, customer);
+        }
 
-        this.customer.setEmail(this.editEmailAddress.getText().toString());
+    }
+
+    private void validateUser(HashMap<String, Object> elements, Customer customer) {
         Boolean isValid = true;
         try{
             isValid = this.customerValidator.validate(customer, elements);
             if (Boolean.FALSE.equals(isValid)){
                 CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
                 try{
-                    createCustomerService.createCustomerSyn(this.customer);
+                    createCustomerService.createCustomerSyn(customer);
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                 }
@@ -149,7 +152,16 @@ public class RegisterActivity extends AppCompatActivity {
         catch (ValidatorError e){
             Toast.makeText(this, e.getMessage(), 2000).show();
         }
+    }
 
-
+    private void setCustomerCommonData(Customer customer) {
+        customer.setUsername(this.textViewOwner.getText().toString());
+        customer.setName(this.textViewName.getText().toString());
+        customer.setSex("Male");
+        customer.setPasswordConfirm(this.editConfirmPassword.getText().toString());
+        customer.setPassword(this.editPassword.getText().toString());
+        customer.setLastName(this.textViewLastName.getText().toString());
+        customer.setCelphone1(this.editTextCellPhone.getText().toString());
+        customer.setEmail(this.editEmailAddress.getText().toString());
     }
 }
