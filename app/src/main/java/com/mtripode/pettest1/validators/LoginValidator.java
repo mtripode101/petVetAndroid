@@ -1,18 +1,20 @@
 package com.mtripode.pettest1.validators;
 
+import com.mtripode.pettest1.abscomponent.StringUtils;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.errors.ConnectionError;
+import com.mtripode.pettest1.errors.ValidatorError;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 
 import java.util.HashMap;
 
-public class LoginValidator implements Validator {
+public class LoginValidator implements Validator  {
     public static final String CUSTOMER_ERROR = "customerError";
 
     @Override
-    public boolean validate(Object o, HashMap<String, Object> elements) {
+    public boolean validate(Object o, HashMap<String, Object> elements) throws ValidatorError {
         Customer customerLogin = (Customer) o;
-        if (customerLogin == null){
+        if (customerLogin == null || StringUtils.isEmpty(customerLogin.getUsername())){
             elements.put(CUSTOMER_ERROR, "Customer does not exist");
             return false;
         }

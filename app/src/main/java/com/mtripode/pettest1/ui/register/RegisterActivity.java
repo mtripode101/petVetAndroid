@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.errors.ConnectionError;
+import com.mtripode.pettest1.errors.ValidatorError;
 import com.mtripode.pettest1.helpers.ServiceRestHelper;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.service.RestInterface;
@@ -99,24 +100,33 @@ public class RegisterActivity extends AppCompatActivity {
         this.customer.setCelphone1(this.editTextCellPhone.getText().toString());
 
         this.customer.setEmail(this.editEmailAddress.getText().toString());
-        if (Boolean.FALSE.equals(this.customerValidator.validate(customer, elements))){
-            CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
-            try{
-                createCustomerService.createCustomerSyn(this.customer);
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-            }
-            catch (ConnectionError e){
-                Toast.makeText(this, e.getMessage(), 2000).show();
-            }
+        Boolean isValid = true;
+        try{
+            isValid = this.customerValidator.validate(customer, elements);
+            if (Boolean.FALSE.equals(isValid)){
+                CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
+                try{
+                    createCustomerService.createCustomerSyn(this.customer);
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                catch (ConnectionError e){
+                    Toast.makeText(this, e.getMessage(), 2000).show();
+                }
 
 
-        }
-        else{
-            if (elements.containsKey("connectionError")){
-                String mjs = (String) elements.get("connectionError");
-                Toast.makeText(this,mjs, 2000).show();
+            }
+            else{
+                if (elements.containsKey("connectionError")){
+                    String mjs = (String) elements.get("connectionError");
+                    Toast.makeText(this,mjs, 2000).show();
+                }
             }
         }
+        catch (ValidatorError e){
+            Toast.makeText(this, e.getMessage(), 2000).show();
+        }
+
+
     }
 }

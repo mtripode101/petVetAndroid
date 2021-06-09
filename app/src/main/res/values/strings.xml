@@ -25,4 +25,6 @@
     <string name="lastName_register">Apellido</string>
     <string name="cellPhone_register">Telefono</string>
     <string name="email_register">Email</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="home_username">Username is </string>
 </resources>
