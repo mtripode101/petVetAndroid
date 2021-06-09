@@ -19,6 +19,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="owner_register">Propietario del animal</string>
+    <string name="vet_register">Vet Doctor</string>
     <string name="password_register">Contraseña</string>
     <string name="confirmPassword_regiser">Confirme contraseña</string>
     <string name="name_register">Nombre</string>
@@ -27,4 +28,6 @@
     <string name="email_register">Email</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="home_username">Username is </string>
+    <string name="register_iamdoctor">I am a Doctor</string>
+    <string name="cedula_register">Cedula</string>
 </resources>

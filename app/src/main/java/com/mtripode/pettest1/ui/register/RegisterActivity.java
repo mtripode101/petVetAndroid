@@ -12,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText textViewLastName;
     private EditText editEmailAddress;
     private EditText editTextCellPhone;
+    private EditText editTextCedula;
+    private CheckBox registerDoctorCheckBox;
 
     private Customer customer;
 
@@ -57,6 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
         this.textViewLastName = findViewById(R.id.textViewLastName);
         this.editEmailAddress = findViewById(R.id.editEmailAddress);
         this.editTextCellPhone = findViewById(R.id.editTextCellPhone);
+        this.editTextCedula = findViewById(R.id.editTextCedula);
+        this.editTextCedula.setVisibility(View.INVISIBLE);
+        this.registerDoctorCheckBox = findViewById(R.id.registerDoctorCheckBox);
         this.customerValidator = new CustomerValidator();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -78,6 +85,22 @@ public class RegisterActivity extends AppCompatActivity {
                buttonRegister(v);
             }
         });
+
+        this.registerDoctorCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if (Boolean.TRUE.equals(isChecked)){
+                    editTextCedula.setVisibility(View.VISIBLE);
+                    textViewOwner.setHint(R.string.vet_register);
+                }
+                else{
+                    editTextCedula.setVisibility(View.INVISIBLE);
+                    textViewOwner.setHint(R.string.owner_register);
+                }
+           }
+       }
+        );
     }
 
     public void buttonRegister (View view){
