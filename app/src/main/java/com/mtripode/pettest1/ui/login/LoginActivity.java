@@ -27,9 +27,11 @@ import android.widget.Toast;
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
+import com.mtripode.pettest1.ui.home.HomeActivity;
 import com.mtripode.pettest1.ui.login.LoginViewModel;
 import com.mtripode.pettest1.ui.login.LoginViewModelFactory;
 import com.mtripode.pettest1.ui.register.RegisterActivity;
+import com.mtripode.pettest1.utils.SessionUtils;
 import com.mtripode.pettest1.validators.LoginValidator;
 
 import java.util.HashMap;
@@ -85,10 +87,8 @@ public class LoginActivity extends AppCompatActivity {
                     LoginValidator loginValidator = new LoginValidator();
                     if (loginValidator.validate(loginResult.getSuccess().getCustomer(), elements )){
                         updateUiWithUser(loginResult.getSuccess());
-                        setResult(Activity.RESULT_OK);
-
-                        //Complete and destroy login activity once successful
-                        finish();
+                        SessionUtils.getInstance().setCustomer(loginResult.getSuccess().getCustomer());
+                        callHomeActivity();
                     }
                     else{
                         showLoginError(elements);
@@ -155,6 +155,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    private void callHomeActivity (){
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     private void callRegisterActivity (){

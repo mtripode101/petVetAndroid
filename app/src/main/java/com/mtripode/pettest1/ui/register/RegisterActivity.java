@@ -12,12 +12,16 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.entity.Doctor;
 import com.mtripode.pettest1.errors.ConnectionError;
+import com.mtripode.pettest1.errors.ValidatorError;
 import com.mtripode.pettest1.helpers.ServiceRestHelper;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.service.RestInterface;
@@ -37,9 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText textViewLastName;
     private EditText editEmailAddress;
     private EditText editTextCellPhone;
-
-    private Customer customer;
-
+    private EditText editTextCedula;
+    private CheckBox registerDoctorCheckBox;
     private CustomerValidator customerValidator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,9 @@ public class RegisterActivity extends AppCompatActivity {
         this.textViewLastName = findViewById(R.id.textViewLastName);
         this.editEmailAddress = findViewById(R.id.editEmailAddress);
         this.editTextCellPhone = findViewById(R.id.editTextCellPhone);
+        this.editTextCedula = findViewById(R.id.editTextCedula);
+        this.editTextCedula.setVisibility(View.INVISIBLE);
+        this.registerDoctorCheckBox = findViewById(R.id.registerDoctorCheckBox);
         this.customerValidator = new CustomerValidator();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -77,6 +83,22 @@ public class RegisterActivity extends AppCompatActivity {
                buttonRegister(v);
             }
         });
+
+        this.registerDoctorCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if (Boolean.TRUE.equals(isChecked)){
+                    editTextCedula.setVisibility(View.VISIBLE);
+                    textViewOwner.setHint(R.string.vet_register);
+                }
+                else{
+                    editTextCedula.setVisibility(View.INVISIBLE);
+                    textViewOwner.setHint(R.string.owner_register);
+                }
+           }
+       }
+        );
     }
 
     public void buttonRegister (View view){
@@ -88,35 +110,58 @@ public class RegisterActivity extends AppCompatActivity {
         elements.put("textViewLastName",this.textViewLastName);
         elements.put("editEmailAddress",this.editEmailAddress);
         elements.put("editTextCellPhone",this.editTextCellPhone);
+        elements.put("editTextCedula", this.editTextCedula);
 
-        this.customer = new Customer();
-        this.customer.setUsername(this.textViewOwner.getText().toString());
-        this.customer.setName(this.textViewName.getText().toString());
-        this.customer.setSex("Male");
-        this.customer.setPasswordConfirm(this.editConfirmPassword.getText().toString());
-        this.customer.setPassword(this.editPassword.getText().toString());
-        this.customer.setLastName(this.textViewLastName.getText().toString());
-        this.customer.setCelphone1(this.editTextCellPhone.getText().toString());
-
-        this.customer.setEmail(this.editEmailAddress.getText().toString());
-        if (Boolean.FALSE.equals(this.customerValidator.validate(customer, elements))){
-            CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
-            try{
-                createCustomerService.createCustomerSyn(this.customer);
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-            }
-            catch (ConnectionError e){
-                Toast.makeText(this, e.getMessage(), 2000).show();
-            }
-
-
+        Customer customer = new Customer();
+        setCustomerCommonData(customer);
+        if (this.registerDoctorCheckBox.isChecked()){
+            Doctor doctor = (Doctor) customer;
+            setCustomerCommonData(customer);
+            doctor.setCedula(this.editTextCedula.getText().toString());
+            validateUser(elements, doctor);
+        }else{
+            validateUser(elements, customer);
         }
-        else{
-            if (elements.containsKey("connectionError")){
-                String mjs = (String) elements.get("connectionError");
-                Toast.makeText(this,mjs, 2000).show();
+
+    }
+
+    private void validateUser(HashMap<String, Object> elements, Customer customer) {
+        Boolean isValid = true;
+        try{
+            isValid = this.customerValidator.validate(customer, elements);
+            if (Boolean.FALSE.equals(isValid)){
+                CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
+                try{
+                    createCustomerService.createCustomerSyn(customer);
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                catch (ConnectionError e){
+                    Toast.makeText(this, e.getMessage(), 2000).show();
+                }
+
+
+            }
+            else{
+                if (elements.containsKey("connectionError")){
+                    String mjs = (String) elements.get("connectionError");
+                    Toast.makeText(this,mjs, 2000).show();
+                }
             }
         }
+        catch (ValidatorError e){
+            Toast.makeText(this, e.getMessage(), 2000).show();
+        }
+    }
+
+    private void setCustomerCommonData(Customer customer) {
+        customer.setUsername(this.textViewOwner.getText().toString());
+        customer.setName(this.textViewName.getText().toString());
+        customer.setSex("Male");
+        customer.setPasswordConfirm(this.editConfirmPassword.getText().toString());
+        customer.setPassword(this.editPassword.getText().toString());
+        customer.setLastName(this.textViewLastName.getText().toString());
+        customer.setCelphone1(this.editTextCellPhone.getText().toString());
+        customer.setEmail(this.editEmailAddress.getText().toString());
     }
 }

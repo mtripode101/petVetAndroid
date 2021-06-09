@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.mtripode.pettest1.abscomponent.StringUtils;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.errors.ConnectionError;
+import com.mtripode.pettest1.errors.ValidatorError;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 
 import java.util.Date;
@@ -35,8 +36,9 @@ public class CustomerValidator implements Validator {
     }
 
     @Override
-    public boolean validate(Object o, HashMap<String, Object> elements ) {
+    public boolean validate(Object o, HashMap<String, Object> elements ) throws ValidatorError {
         Customer customer = (Customer) o;
+
         TextView textViewOwner = (TextView) elements.get("textViewOwner");
         TextView editPassword = (TextView) elements.get("editPassword");
         TextView editConfirmPassword = (TextView) elements.get("editConfirmPassword");
@@ -87,7 +89,7 @@ public class CustomerValidator implements Validator {
         return hasError;
     }
 
-    private boolean validateGeneralEmail(Customer customer, HashMap<String, Object> elements) {
+    private boolean validateGeneralEmail(Customer customer, HashMap<String, Object> elements) throws ValidatorError {
         CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
         Customer cusEmail = null;
 
@@ -101,7 +103,7 @@ public class CustomerValidator implements Validator {
         }
         catch (ConnectionError e){
             elements.put("connectionError", e.getMessage());
-            return true;
+            throw new ValidatorError(e.getMessage());
         }
 
 
@@ -124,19 +126,19 @@ public class CustomerValidator implements Validator {
         }
     }
 
-    private boolean verifyUserExists(Customer customer, HashMap<String, Object> elements) {
+    private boolean verifyUserExists(Customer customer, HashMap<String, Object> elements) throws ValidatorError {
         CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
         Customer cusEmail = null;
         try{
             cusEmail = createCustomerService.findCustomerByUserName(customer);
-            if (cusEmail != null && cusEmail.getUsername().equals(customer.getUsername())) {
+            if (cusEmail != null && !StringUtils.isEmpty(cusEmail.getUsername()) && cusEmail.getUsername().equals(customer.getUsername())) {
                 return true;
             }
 
         }
         catch (ConnectionError e){
             elements.put("connectionError", e.getMessage());
-            return true;
+            throw new ValidatorError(e.getMessage());
         }
 
 

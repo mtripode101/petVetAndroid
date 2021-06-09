@@ -86,6 +86,21 @@
                 android:ems="10"
                 android:hint="@string/cellPhone_register"
                 android:inputType="phone" />
+
+            <CheckBox
+                android:id="@+id/registerDoctorCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_iamdoctor" />
+
+            <EditText
+                android:id="@+id/editTextCedula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cedula_register"
+                android:inputType="textPersonName" />
+
         </LinearLayout>
 
         <LinearLayout
