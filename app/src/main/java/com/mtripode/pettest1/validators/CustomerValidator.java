@@ -38,6 +38,7 @@ public class CustomerValidator implements Validator {
     @Override
     public boolean validate(Object o, HashMap<String, Object> elements ) throws ValidatorError {
         Customer customer = (Customer) o;
+
         TextView textViewOwner = (TextView) elements.get("textViewOwner");
         TextView editPassword = (TextView) elements.get("editPassword");
         TextView editConfirmPassword = (TextView) elements.get("editConfirmPassword");
