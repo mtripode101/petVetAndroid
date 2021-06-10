@@ -1,6 +1,7 @@
 package com.mtripode.pettest1.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 public class Customer {
     private Long id;
@@ -41,6 +42,16 @@ public class Customer {
     private String sex;
 
     private boolean enable;
+
+    private Set<Animal> animals;
+
+    public Set<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(Set<Animal> animals) {
+        this.animals = animals;
+    }
 
     public String getUsername() {
         return username;

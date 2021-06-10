@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
+import com.mtripode.pettest1.entity.Animal;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.entity.Doctor;
 import com.mtripode.pettest1.errors.ConnectionError;
@@ -31,6 +32,8 @@ import com.mtripode.pettest1.validators.CustomerValidator;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -132,6 +135,15 @@ public class RegisterActivity extends AppCompatActivity {
             if (Boolean.FALSE.equals(isValid)){
                 CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
                 try{
+                    Animal animal1 = new Animal();
+                    animal1.setBirthday(1);
+                    animal1.setSex("Male");
+                    animal1.setName("Bonito1");
+                    animal1.setSpecie("Gato");
+
+                    Set<Animal> animals = new HashSet<>();
+                    animals.add(animal1);
+                    customer.setAnimals(animals);
                     createCustomerService.createCustomerSyn(customer);
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);

@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.mtripode.pettest1.abscomponent.StringUtils;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.entity.Doctor;
 import com.mtripode.pettest1.errors.ConnectionError;
 import com.mtripode.pettest1.errors.ValidatorError;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
@@ -37,13 +38,33 @@ public class CustomerValidator implements Validator {
 
     @Override
     public boolean validate(Object o, HashMap<String, Object> elements ) throws ValidatorError {
-        Customer customer = (Customer) o;
+        Boolean hasError = false;
+        if (o instanceof Customer){
+            Customer customer = (Customer) o;
 
+            hasError = validateCommonData(elements, hasError, customer);
+
+        /*if (validateUserEmail(customer.getEmail())) {
+            hasError = true;
+            editEmailAddress.setError("Mail invalido");
+        }*/
+        }
+        else if (o instanceof Doctor){
+            Doctor doctor = (Doctor) o;
+            hasError = validateCommonData(elements, hasError, doctor);
+        }
+
+
+
+        return hasError;
+    }
+
+    private Boolean validateCommonData(HashMap<String, Object> elements, Boolean hasError, Customer customer) {
         TextView textViewOwner = (TextView) elements.get("textViewOwner");
         TextView editPassword = (TextView) elements.get("editPassword");
         TextView editConfirmPassword = (TextView) elements.get("editConfirmPassword");
         TextView editEmailAddress = (TextView) elements.get("editEmailAddress");
-        Boolean hasError = false;
+
         if (StringUtils.isEmpty(customer.getUsername())){
             textViewOwner.setError("Este campo es requerido");
             hasError = true;
@@ -80,12 +101,6 @@ public class CustomerValidator implements Validator {
 
         Date birthday = customer.getBirthday();
         datebirthValidate(birthday);
-
-        /*if (validateUserEmail(customer.getEmail())) {
-            hasError = true;
-            editEmailAddress.setError("Mail invalido");
-        }*/
-
         return hasError;
     }
 

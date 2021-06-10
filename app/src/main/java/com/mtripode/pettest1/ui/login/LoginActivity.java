@@ -86,9 +86,11 @@ public class LoginActivity extends AppCompatActivity {
                     HashMap<String, Object> elements = new HashMap<String, Object>();
                     LoginValidator loginValidator = new LoginValidator();
                     if (loginValidator.validate(loginResult.getSuccess().getCustomer(), elements )){
-                        updateUiWithUser(loginResult.getSuccess());
-                        SessionUtils.getInstance().setCustomer(loginResult.getSuccess().getCustomer());
-                        callHomeActivity();
+                        if (elements.containsKey(LoginValidator.CUSTOMERTO_LOGGED)){
+                            updateUiWithUser(loginResult.getSuccess());
+                            SessionUtils.getInstance().setCustomer((Customer) elements.get(LoginValidator.CUSTOMERTO_LOGGED));
+                            callHomeActivity();
+                        }
                     }
                     else{
                         showLoginError(elements);
@@ -148,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome = getString(R.string.welcome) + model.getCustomer().getUsername();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
