@@ -2,7 +2,6 @@ package com.mtripode.pettest1.data;
 
 import com.mtripode.pettest1.data.model.LoggedInUser;
 import com.mtripode.pettest1.entity.Customer;
-import com.mtripode.pettest1.service.CustomerServiceImpl;
 
 import java.io.IOException;
 
@@ -19,7 +18,6 @@ public class LoginDataSource {
                     new LoggedInUser(
                             java.util.UUID.randomUUID().toString(),
                             "Jane Doe");
-            CustomerServiceImpl customerService = new CustomerServiceImpl();
             Customer customer = new Customer();
             customer.setUsername(username);
             customer.setPassword(password);

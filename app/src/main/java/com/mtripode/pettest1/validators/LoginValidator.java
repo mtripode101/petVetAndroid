@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class LoginValidator implements Validator  {
     public static final String CUSTOMER_ERROR = "customerError";
+    public static final String CUSTOMERTO_LOGGED = "customertoLogged";
 
     @Override
     public boolean validate(Object o, HashMap<String, Object> elements) throws ValidatorError {
@@ -38,6 +39,11 @@ public class LoginValidator implements Validator  {
             elements.put(CUSTOMER_ERROR, "Customer does not exist");
             return false;
         }
+        
+        if (customerRet != null){
+            elements.put(CUSTOMERTO_LOGGED, customerRet);
+        }
+        
         return true;
     }
 
