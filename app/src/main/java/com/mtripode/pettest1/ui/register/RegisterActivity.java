@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
+import com.mtripode.pettest1.entity.Address;
 import com.mtripode.pettest1.entity.Animal;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.entity.Doctor;
@@ -136,14 +137,27 @@ public class RegisterActivity extends AppCompatActivity {
                 CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
                 try{
                     Animal animal1 = new Animal();
-                    animal1.setBirthday(1);
+                    animal1.setBirthday(new Date());
                     animal1.setSex("Male");
                     animal1.setName("Bonito1");
                     animal1.setSpecie("Gato");
+                    Customer customerAnimal = new Customer();
+                    customer.setUsername(customer.getUsername());
 
                     Set<Animal> animals = new HashSet<>();
                     animals.add(animal1);
                     customer.setAnimals(animals);
+
+                    Address address1 = new Address();
+                    address1.setAddress("Ame");
+                    address1.setCity("Bs As");
+                    address1.setCountry("Argentina");
+                    address1.setState("Bs As");
+                    address1.setZipPostal("142");
+                    Set<Address> addresses = new HashSet<>();
+                    addresses.add(address1);
+                    customer.setAddresses(addresses);
+
                     createCustomerService.createCustomerSyn(customer);
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);

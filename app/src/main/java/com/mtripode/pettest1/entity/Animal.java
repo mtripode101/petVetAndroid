@@ -1,8 +1,11 @@
 package com.mtripode.pettest1.entity;
 
+import java.util.Date;
+
 public class Animal {
 
     private Long id;
+    private Customer owner;
 
     public Long getId() {
         return id;
@@ -13,7 +16,7 @@ public class Animal {
     }
 
     private String name;
-    private int birthday;
+    private Date birthday;
     private String specie;
     private String sex;
 
@@ -23,14 +26,6 @@ public class Animal {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(int birthday) {
-        this.birthday = birthday;
     }
 
     public String getSpecie() {
@@ -47,6 +42,22 @@ public class Animal {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Customer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Customer owner) {
+        this.owner = owner;
     }
 }
 

@@ -45,6 +45,12 @@ public class Customer {
 
     private Set<Animal> animals;
 
+    private Set<Address> addresses;
+
+    private Set<Doctor> doctors;
+
+    private Set<Hospital> hospital;
+
     public Set<Animal> getAnimals() {
         return animals;
     }
@@ -163,5 +169,29 @@ public class Customer {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public Set<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Set<Doctor> doctors) {
+        this.doctors = doctors;
+    }
+
+    public Set<Hospital> getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Set<Hospital> hospital) {
+        this.hospital = hospital;
     }
 }

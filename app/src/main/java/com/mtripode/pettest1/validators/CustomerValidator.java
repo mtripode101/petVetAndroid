@@ -38,16 +38,17 @@ public class CustomerValidator implements Validator {
 
     @Override
     public boolean validate(Object o, HashMap<String, Object> elements ) throws ValidatorError {
+        TextView editEmailAddress = (TextView) elements.get("editEmailAddress");
         Boolean hasError = false;
         if (o instanceof Customer){
             Customer customer = (Customer) o;
 
             hasError = validateCommonData(elements, hasError, customer);
 
-        /*if (validateUserEmail(customer.getEmail())) {
+        if (validateUserEmail(customer.getEmail())) {
             hasError = true;
             editEmailAddress.setError("Mail invalido");
-        }*/
+        }
         }
         else if (o instanceof Doctor){
             Doctor doctor = (Doctor) o;
@@ -110,7 +111,7 @@ public class CustomerValidator implements Validator {
 
         try{
             cusEmail = createCustomerService.findCustomerSync(customer);
-            if (cusEmail != null && (cusEmail.getEmail().equalsIgnoreCase(CustomerValidator.MORE_THAN_ONE)
+            if (cusEmail != null && (!StringUtils.isEmpty(cusEmail.getEmail())) && (cusEmail.getEmail().equalsIgnoreCase(CustomerValidator.MORE_THAN_ONE)
                     || cusEmail.getEmail().equalsIgnoreCase(customer.getEmail()))) {
                 return true;
             }
