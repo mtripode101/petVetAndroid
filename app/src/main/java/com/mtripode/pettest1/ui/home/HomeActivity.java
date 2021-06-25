@@ -10,7 +10,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
@@ -33,5 +35,17 @@ public class HomeActivity extends AppCompatActivity {
         String welcome = getString(R.string.home_username) + " "+this.userLoggedIn.getUsername();
         editTextTextPersonName.setText(welcome);
 
+        final Button buttonAnimals = findViewById(R.id.buttonAnimals);
+
+        buttonAnimals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonPet(v);
+            }
+        });
+    }
+
+    public void buttonPet (View view){
+        Toast.makeText(this.getApplicationContext(), "Boton mascotas", 2000);
     }
 }

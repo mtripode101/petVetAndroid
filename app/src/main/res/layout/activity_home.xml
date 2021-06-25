@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:onClick="buttonPet"
     tools:context=".ui.home.HomeActivity">
 
     <LinearLayout
@@ -38,7 +39,8 @@
                 android:id="@+id/buttonAnimals"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Mascotas" />
+                android:onClick="buttonPet"
+                android:text="@string/home_button_pet" />
         </LinearLayout>
 
     </LinearLayout>
