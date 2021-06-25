@@ -30,7 +30,7 @@ public class LoginValidator implements Validator  {
             return false;
         }
 
-        if (customerRet != null) {
+        if (customerRet != null && customerRet.getId() != null && customerRet.getId() > 0) {
             if (!validateCustomerFound(customerLogin, customerRet, elements)){
                 return false;
             }

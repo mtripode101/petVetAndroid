@@ -1,5 +1,6 @@
 package com.mtripode.pettest1.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -10,10 +11,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.ui.login.LoginActivity;
+import com.mtripode.pettest1.ui.petmenu.PetMenuActivity;
 import com.mtripode.pettest1.utils.SessionUtils;
 
 public class HomeActivity extends AppCompatActivity {
@@ -33,5 +38,18 @@ public class HomeActivity extends AppCompatActivity {
         String welcome = getString(R.string.home_username) + " "+this.userLoggedIn.getUsername();
         editTextTextPersonName.setText(welcome);
 
+        final Button buttonAnimals = findViewById(R.id.buttonAnimals);
+
+        buttonAnimals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonPet(v);
+            }
+        });
+    }
+
+    public void buttonPet (View view){
+        Intent intent = new Intent(this, PetMenuActivity.class);
+        startActivity(intent);
     }
 }

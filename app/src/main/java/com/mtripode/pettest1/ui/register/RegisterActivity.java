@@ -116,14 +116,14 @@ public class RegisterActivity extends AppCompatActivity {
         elements.put("editTextCellPhone",this.editTextCellPhone);
         elements.put("editTextCedula", this.editTextCedula);
 
-        Customer customer = new Customer();
-        setCustomerCommonData(customer);
         if (this.registerDoctorCheckBox.isChecked()){
-            Doctor doctor = (Doctor) customer;
-            setCustomerCommonData(customer);
+            Doctor doctor = new Doctor();
+            setCustomerCommonData(doctor);
             doctor.setCedula(this.editTextCedula.getText().toString());
             validateUser(elements, doctor);
         }else{
+            Customer customer = new Customer();
+            setCustomerCommonData(customer);
             validateUser(elements, customer);
         }
 
@@ -136,29 +136,13 @@ public class RegisterActivity extends AppCompatActivity {
             if (Boolean.FALSE.equals(isValid)){
                 CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
                 try{
-                    Animal animal1 = new Animal();
-                    animal1.setBirthday(new Date());
-                    animal1.setSex("Male");
-                    animal1.setName("Bonito1");
-                    animal1.setSpecie("Gato");
-                    Customer customerAnimal = new Customer();
-                    customer.setUsername(customer.getUsername());
+                    if (customer instanceof  Doctor){
+                        createCustomerService.createDoctorSyn((Doctor) customer);
+                    }
+                    else if (customer instanceof Customer){
+                        createCustomerService.createCustomerSyn(customer);
+                    }
 
-                    Set<Animal> animals = new HashSet<>();
-                    animals.add(animal1);
-                    customer.setAnimals(animals);
-
-                    Address address1 = new Address();
-                    address1.setAddress("Ame");
-                    address1.setCity("Bs As");
-                    address1.setCountry("Argentina");
-                    address1.setState("Bs As");
-                    address1.setZipPostal("142");
-                    Set<Address> addresses = new HashSet<>();
-                    addresses.add(address1);
-                    customer.setAddresses(addresses);
-
-                    createCustomerService.createCustomerSyn(customer);
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                 }

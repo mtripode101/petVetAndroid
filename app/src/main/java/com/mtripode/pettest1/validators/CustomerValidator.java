@@ -45,10 +45,10 @@ public class CustomerValidator implements Validator {
 
             hasError = validateCommonData(elements, hasError, customer);
 
-        if (validateUserEmail(customer.getEmail())) {
-            hasError = true;
-            editEmailAddress.setError("Mail invalido");
-        }
+            if (validateUserEmail(customer.getEmail())) {
+                hasError = true;
+                editEmailAddress.setError("Mail invalido");
+            }
         }
         else if (o instanceof Doctor){
             Doctor doctor = (Doctor) o;
