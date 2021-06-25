@@ -6,4 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.petmenu.PetMenuActivity">
 
+    <LinearLayout
+        android:id="@+id/mainLayoutPet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="286dp">
+
+        <Button
+            android:id="@+id/buttonAddModifyPet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/petMenu_addmodify_pet" />
+
+        <Button
+            android:id="@+id/buttonRemovePet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/petMenu_remove_pet" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

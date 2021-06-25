@@ -31,4 +31,6 @@
     <string name="register_iamdoctor">I am a Doctor</string>
     <string name="cedula_register">Cedula</string>
     <string name="home_button_pet">Mascotas</string>
+    <string name="petMenu_addmodify_pet">AddUpdate</string>
+    <string name="petMenu_remove_pet">Remove</string>
 </resources>
