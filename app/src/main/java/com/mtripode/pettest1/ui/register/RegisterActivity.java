@@ -116,14 +116,14 @@ public class RegisterActivity extends AppCompatActivity {
         elements.put("editTextCellPhone",this.editTextCellPhone);
         elements.put("editTextCedula", this.editTextCedula);
 
-        Customer customer = new Customer();
-        setCustomerCommonData(customer);
         if (this.registerDoctorCheckBox.isChecked()){
-            Doctor doctor = (Doctor) customer;
-            setCustomerCommonData(customer);
+            Doctor doctor = new Doctor();
+            setCustomerCommonData(doctor);
             doctor.setCedula(this.editTextCedula.getText().toString());
             validateUser(elements, doctor);
         }else{
+            Customer customer = new Customer();
+            setCustomerCommonData(customer);
             validateUser(elements, customer);
         }
 
