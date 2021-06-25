@@ -136,7 +136,13 @@ public class RegisterActivity extends AppCompatActivity {
             if (Boolean.FALSE.equals(isValid)){
                 CustomerServiceImpl createCustomerService = new CustomerServiceImpl();
                 try{
-                    createCustomerService.createCustomerSyn(customer);
+                    if (customer instanceof  Doctor){
+                        createCustomerService.createDoctorSyn((Doctor) customer);
+                    }
+                    else if (customer instanceof Customer){
+                        createCustomerService.createCustomerSyn(customer);
+                    }
+
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                 }
