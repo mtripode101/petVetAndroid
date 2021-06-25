@@ -1,5 +1,6 @@
 package com.mtripode.pettest1.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.ui.login.LoginActivity;
+import com.mtripode.pettest1.ui.petmenu.PetMenuActivity;
 import com.mtripode.pettest1.utils.SessionUtils;
 
 public class HomeActivity extends AppCompatActivity {
@@ -46,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void buttonPet (View view){
-        Toast.makeText(this.getApplicationContext(), "Boton mascotas", 2000);
+        Intent intent = new Intent(this, PetMenuActivity.class);
+        startActivity(intent);
     }
 }
