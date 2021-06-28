@@ -1,5 +1,6 @@
 package com.mtripode.pettest1.service;
 
+import com.mtripode.pettest1.entity.Animal;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.entity.Doctor;
 
@@ -11,6 +12,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface RestInterface {
+
+    @Headers("Content-Type: application/json")
+    @POST("/rest/customer/animal/createupdate")
+    Call<Animal> createUdpateAnimal(@Body Animal animal, @Body Long customerId);
 
     @Headers("Content-Type: application/json")
     @POST("rest/customer/update")

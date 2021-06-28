@@ -51,7 +51,7 @@ public class PetMenuActivity extends AppCompatActivity {
         animalTest.setName("TestName1");
         animalTest.setSex("Male");
         animalTest.setBirthday(new Date());
-        customerService.updateCustomerSyn(this.userLoggedIn);
+        this.userLoggedIn.getAnimals().add(animalTest);
     }
 
     public void buttonRemovePet (View view){

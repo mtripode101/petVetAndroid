@@ -74,11 +74,11 @@ public class CustomerValidator implements Validator {
             hasError = true;
         }
 
-        if (validateUserEmail(customer.getEmail())) {
+ /*       if (validateUserEmail(customer.getEmail())) {
             hasError = true;
             editEmailAddress.setError("Mail invalido");
         }
-
+*/
         if (validateGeneralEmail(customer, elements)) {
             hasError = true;
             editEmailAddress.setError("Este email ya esta siendo utilizado.");

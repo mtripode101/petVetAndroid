@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceRestHelper {
 
-    private static final String BASEPOINT = "http://192.168.0.16:8080/petVet/";
+    private static final String BASEPOINT = "http://192.168.0.15:8080/petVet/";
 
     private static OkHttpClient httpClient = new OkHttpClient();
     private static ServiceRestHelper instance = new ServiceRestHelper();
