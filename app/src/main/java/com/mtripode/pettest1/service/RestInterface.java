@@ -13,6 +13,10 @@ import retrofit2.http.Path;
 public interface RestInterface {
 
     @Headers("Content-Type: application/json")
+    @POST("rest/customer/update")
+    Call<Customer> udpateEmployee(@Body Customer body);
+
+    @Headers("Content-Type: application/json")
     @POST("rest/customer/create")
     Call<Customer> createEmployee(@Body Customer body);
 

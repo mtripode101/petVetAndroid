@@ -38,17 +38,10 @@ public class CustomerValidator implements Validator {
 
     @Override
     public boolean validate(Object o, HashMap<String, Object> elements ) throws ValidatorError {
-        TextView editEmailAddress = (TextView) elements.get("editEmailAddress");
         Boolean hasError = false;
         if (o instanceof Customer){
             Customer customer = (Customer) o;
-
             hasError = validateCommonData(elements, hasError, customer);
-
-            if (validateUserEmail(customer.getEmail())) {
-                hasError = true;
-                editEmailAddress.setError("Mail invalido");
-            }
         }
         else if (o instanceof Doctor){
             Doctor doctor = (Doctor) o;
@@ -79,6 +72,11 @@ public class CustomerValidator implements Validator {
         if (validateUsername(customer.getUsername())) {
             textViewOwner.setError("Usar entre 6 y 32 caracteres.");
             hasError = true;
+        }
+
+        if (validateUserEmail(customer.getEmail())) {
+            hasError = true;
+            editEmailAddress.setError("Mail invalido");
         }
 
         if (validateGeneralEmail(customer, elements)) {

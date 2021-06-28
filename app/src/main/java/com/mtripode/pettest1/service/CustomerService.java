@@ -12,6 +12,8 @@ public interface CustomerService {
 
     public Customer createDoctorSyn (Doctor doctor) throws ConnectionError;
 
+    public Customer updateCustomerSyn (Customer customer) throws ConnectionError;
+
     public Customer findCustomer (Customer customer) throws ConnectionError;
 
     public Customer findCustomerSync (Customer customer) throws ConnectionError;
