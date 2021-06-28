@@ -10,9 +10,9 @@ import retrofit2.Response;
 
 public class AnimalServiceImpl implements AnimalService {
     @Override
-    public Animal createAnimal(Animal animal, Customer customer) throws ConnectionError {
+    public Animal createAnimal(Animal animal) throws ConnectionError {
         {
-            Call<Animal> userCall = HttpUtils.getRestInterface().createUdpateAnimal(animal, customer.getId());
+            Call<Animal> userCall = HttpUtils.getRestInterface().createUdpateAnimal(animal);
             Animal animalRet = null;
 
             try
@@ -32,7 +32,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public Animal updateAnimal(Animal animal, Customer customer) throws ConnectionError {
+    public Animal updateAnimal(Animal animal) throws ConnectionError {
         return null;
     }
 }

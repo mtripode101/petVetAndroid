@@ -14,8 +14,8 @@ import retrofit2.http.Path;
 public interface RestInterface {
 
     @Headers("Content-Type: application/json")
-    @POST("/rest/customer/animal/createupdate")
-    Call<Animal> createUdpateAnimal(@Body Animal animal, @Body Long customerId);
+    @POST("rest/customer/animal/createupdate")
+    Call<Animal> createUdpateAnimal(@Body Animal animal);
 
     @Headers("Content-Type: application/json")
     @POST("rest/customer/update")

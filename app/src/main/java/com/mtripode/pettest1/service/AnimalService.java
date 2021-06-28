@@ -6,7 +6,7 @@ import com.mtripode.pettest1.errors.ConnectionError;
 
 public interface AnimalService {
 
-    public Animal createAnimal (Animal animal, Customer customer) throws ConnectionError;
+    public Animal createAnimal (Animal animal) throws ConnectionError;
 
-    public Animal updateAnimal (Animal animal, Customer customer) throws ConnectionError;
+    public Animal updateAnimal (Animal animal) throws ConnectionError;
 }

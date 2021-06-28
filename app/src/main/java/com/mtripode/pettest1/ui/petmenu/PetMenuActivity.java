@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Animal;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.service.AnimalServiceImpl;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.utils.SessionUtils;
 
@@ -45,13 +46,16 @@ public class PetMenuActivity extends AppCompatActivity {
 
     public void buttonAddModifyPet (View view){
         Toast.makeText(this.getApplicationContext(), "AddModify", 2000).show();
-        CustomerServiceImpl customerService = new CustomerServiceImpl();
+        AnimalServiceImpl animalService = new AnimalServiceImpl();
         Animal animalTest = new Animal();
         animalTest.setSpecie("Test1");
         animalTest.setName("TestName1");
         animalTest.setSex("Male");
         animalTest.setBirthday(new Date());
-        this.userLoggedIn.getAnimals().add(animalTest);
+        animalTest.setOwner(this.userLoggedIn);
+        Animal newAnimal = animalService.createAnimal(animalTest);
+
+        this.userLoggedIn.getAnimals().add(newAnimal);
     }
 
     public void buttonRemovePet (View view){
