@@ -15,6 +15,7 @@ import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.utils.SessionUtils;
 
 import java.util.Date;
+import java.util.Set;
 
 public class PetMenuActivity extends AppCompatActivity {
 
@@ -60,6 +61,8 @@ public class PetMenuActivity extends AppCompatActivity {
 
     public void buttonRemovePet (View view){
         Toast.makeText(this.getApplicationContext(), "Remove", 2000).show();
+        AnimalServiceImpl animalService = new AnimalServiceImpl();
+        Set<Animal> animals = animalService.getAnimalsByOwner(this.userLoggedIn);
 
     }
 }

@@ -4,6 +4,8 @@ import com.mtripode.pettest1.entity.Animal;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.entity.Doctor;
 
+import java.util.Set;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -34,4 +36,8 @@ public interface RestInterface {
 
     @GET("rest/customer/findByUsername/{username}")
     Call<Customer> findCustomerByUserName(@Path("username") String username);
+
+    @GET("rest/customer/animals/{customer}")
+    Call<Set<Animal>> findAnimalsByCustomer(@Path("customer") Customer customer);
+
 }
