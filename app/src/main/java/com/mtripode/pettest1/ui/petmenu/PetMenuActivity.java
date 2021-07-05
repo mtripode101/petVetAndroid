@@ -63,6 +63,7 @@ public class PetMenuActivity extends AppCompatActivity {
         Toast.makeText(this.getApplicationContext(), "Remove", 2000).show();
         AnimalServiceImpl animalService = new AnimalServiceImpl();
         Set<Animal> animals = animalService.getAnimalsByOwner(this.userLoggedIn);
-
+        this.userLoggedIn.getAnimals().clear();
+        this.userLoggedIn.getAnimals().addAll(animals);
     }
 }
