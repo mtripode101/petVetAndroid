@@ -37,7 +37,7 @@ public interface RestInterface {
     @GET("rest/customer/findByUsername/{username}")
     Call<Customer> findCustomerByUserName(@Path("username") String username);
 
-    @GET("rest/customer/animals/{customer}")
-    Call<Set<Animal>> findAnimalsByCustomer(@Path("customer") Customer customer);
+    @GET("rest/customer/animals/{username}")
+    Call<Set<Animal>> findAnimalsByCustomer(@Path("username") String username);
 
 }

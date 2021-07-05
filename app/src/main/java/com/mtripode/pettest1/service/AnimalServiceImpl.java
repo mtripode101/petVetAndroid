@@ -41,7 +41,7 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public Set<Animal> getAnimalsByOwner(Customer owner) throws ConnectionError {
         {
-            Call<Set<Animal>> userCall = HttpUtils.getRestInterface().findAnimalsByCustomer(owner);
+            Call<Set<Animal>> userCall = HttpUtils.getRestInterface().findAnimalsByCustomer(owner.getUsername());
             Set<Animal> animalsRet = null;
 
             try
