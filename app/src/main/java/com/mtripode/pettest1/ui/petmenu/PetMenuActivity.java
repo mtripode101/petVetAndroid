@@ -43,6 +43,11 @@ public class PetMenuActivity extends AppCompatActivity {
                 buttonRemovePet(v);
             }
         });
+
+        AnimalServiceImpl animalService = new AnimalServiceImpl();
+        Set<Animal> animals = animalService.getAnimalsByOwner(this.userLoggedIn);
+        this.userLoggedIn.getAnimals().clear();
+        this.userLoggedIn.getAnimals().addAll(animals);
     }
 
     public void buttonAddModifyPet (View view){
@@ -61,9 +66,6 @@ public class PetMenuActivity extends AppCompatActivity {
 
     public void buttonRemovePet (View view){
         Toast.makeText(this.getApplicationContext(), "Remove", 2000).show();
-        AnimalServiceImpl animalService = new AnimalServiceImpl();
-        Set<Animal> animals = animalService.getAnimalsByOwner(this.userLoggedIn);
-        this.userLoggedIn.getAnimals().clear();
-        this.userLoggedIn.getAnimals().addAll(animals);
+
     }
 }
