@@ -13,4 +13,6 @@ public interface AnimalService {
     public Animal updateAnimal (Animal animal) throws ConnectionError;
 
     public Set<Animal> getAnimalsByOwner (Customer owner) throws ConnectionError;
+
+    public Animal removeAnimal (Animal animal) throws  ConnectionError;
 }

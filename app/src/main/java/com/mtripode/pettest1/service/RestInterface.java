@@ -43,4 +43,8 @@ public interface RestInterface {
     @Headers("Content-Type: application/json")
     @POST("rest/animal/update")
     Call<Animal> updateAnimal(@Body Animal animal);
+
+    @Headers("Content-Type: application/json")
+    @POST("rest/animal/remove")
+    Call<Animal> removeAnimal(@Body Animal animal);
 }

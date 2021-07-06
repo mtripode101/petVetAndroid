@@ -91,6 +91,16 @@ public class PetMenuActivity extends AppCompatActivity {
     public void buttonRemovePet (View view){
         if (animalSelected != null){
             Toast.makeText(this.getApplicationContext(), "Remove "+animalSelected.getName(), 2000).show();
+            AnimalServiceImpl animalService = new AnimalServiceImpl();
+            try{
+                animalService.removeAnimal(animalSelected);
+                Intent intent = new Intent(this, PetMenuActivity.class);
+                startActivity(intent);
+            }
+            catch (ConnectionError e){
+
+            }
+
         }
         else{
             Toast.makeText(this.getApplicationContext(), "Remove ", 2000).show();
