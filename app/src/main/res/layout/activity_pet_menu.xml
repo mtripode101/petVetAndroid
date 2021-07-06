@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="286dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <Button
             android:id="@+id/buttonAddModifyPet"
@@ -29,4 +29,20 @@
             android:text="@string/petMenu_remove_pet" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearListContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="382dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainLayoutPet">
+
+        <ListView
+            android:id="@+id/listAnimalsView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
