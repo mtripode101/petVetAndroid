@@ -40,4 +40,7 @@ public interface RestInterface {
     @GET("rest/customer/animals/{username}")
     Call<Set<Animal>> findAnimalsByCustomer(@Path("username") String username);
 
+    @Headers("Content-Type: application/json")
+    @POST("rest/animal/update")
+    Call<Animal> updateAnimal(@Body Animal animal);
 }
