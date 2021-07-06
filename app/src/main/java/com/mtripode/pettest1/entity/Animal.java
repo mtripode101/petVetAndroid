@@ -1,8 +1,9 @@
 package com.mtripode.pettest1.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Animal {
+public class Animal implements Serializable {
 
     private Long id;
     private Customer owner;

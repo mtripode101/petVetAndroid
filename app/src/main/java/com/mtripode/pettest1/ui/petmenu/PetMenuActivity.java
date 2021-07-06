@@ -2,6 +2,7 @@ package com.mtripode.pettest1.ui.petmenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,8 @@ import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.errors.ConnectionError;
 import com.mtripode.pettest1.service.AnimalServiceImpl;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
+import com.mtripode.pettest1.ui.addupdatepet.AddUpdatePetActivity;
+import com.mtripode.pettest1.ui.register.RegisterActivity;
 import com.mtripode.pettest1.utils.SessionUtils;
 
 import java.util.ArrayList;
@@ -79,36 +82,25 @@ public class PetMenuActivity extends AppCompatActivity {
 
     public void buttonAddModifyPet (View view){
         AnimalServiceImpl animalService = new AnimalServiceImpl();
-        if (animalSelected != null){
-            Toast.makeText(this.getApplicationContext(), "Modifying "+animalSelected.getName(), 2000).show();
-            try{
-                Animal animalToupdate = animalSelected;
-                Customer customer = new Customer();
-                customer.setId(userLoggedIn.getId());
-                customer.setUsername(userLoggedIn.getUsername());
-                customer.setName(userLoggedIn.getName());
-                customer.setEmail(userLoggedIn.getEmail());
-                customer.setLastName(userLoggedIn.getLastName());
-                animalToupdate.setOwner(customer);
-
-                animalService.updateAnimal(animalToupdate);
-
-            }
-            catch (ConnectionError e){
-
-            }
-
-        }
-        else{
-            Toast.makeText(this.getApplicationContext(), "Addinng", 2000).show();
-
-        }
+         Intent intent = new Intent(this, AddUpdatePetActivity.class);
+         intent.putExtra("animalSelected", animalSelected);
+         startActivity(intent);
 
     }
 
     public void buttonRemovePet (View view){
         if (animalSelected != null){
             Toast.makeText(this.getApplicationContext(), "Remove "+animalSelected.getName(), 2000).show();
+            AnimalServiceImpl animalService = new AnimalServiceImpl();
+            try{
+                animalService.removeAnimal(animalSelected);
+                Intent intent = new Intent(this, PetMenuActivity.class);
+                startActivity(intent);
+            }
+            catch (ConnectionError e){
+
+            }
+
         }
         else{
             Toast.makeText(this.getApplicationContext(), "Remove ", 2000).show();

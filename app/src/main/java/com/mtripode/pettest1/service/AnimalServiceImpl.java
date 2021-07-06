@@ -76,4 +76,26 @@ public class AnimalServiceImpl implements AnimalService {
             return animalsRet;
         }
     }
+
+    @Override
+    public Animal removeAnimal(Animal animal) throws ConnectionError {
+        {
+            Call<Animal> userCall = HttpUtils.getRestInterface().removeAnimal(animal);
+            Animal animalRet = null;
+
+            try
+            {
+                Response<Animal> response = userCall.execute();
+                animalRet = response.body();
+
+                //API response
+            }
+            catch (Exception ex)
+            {
+                throw new ConnectionError(ex.getMessage());
+            }
+
+            return animalRet;
+        }
+    }
 }
