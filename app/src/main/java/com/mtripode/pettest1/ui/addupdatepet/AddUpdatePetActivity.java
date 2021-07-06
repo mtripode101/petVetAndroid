@@ -15,6 +15,9 @@ import com.mtripode.pettest1.errors.ConnectionError;
 import com.mtripode.pettest1.service.AnimalServiceImpl;
 import com.mtripode.pettest1.ui.petmenu.PetMenuActivity;
 import com.mtripode.pettest1.utils.SessionUtils;
+import com.mtripode.pettest1.validators.AnimalValidator;
+
+import java.util.HashMap;
 
 public class AddUpdatePetActivity extends AppCompatActivity {
 
@@ -61,7 +64,16 @@ public class AddUpdatePetActivity extends AppCompatActivity {
     public void buttonAddUpdatePetSave (View view){
         AnimalServiceImpl animalService = new AnimalServiceImpl();
         try{
-            Animal animalToupdate = animalSelected;
+            Animal animalToupdate;
+            Boolean isNew = false;
+            if (this.animalSelected == null){
+                animalToupdate = new Animal();
+                isNew = true;
+            }
+            else{
+                animalToupdate = animalSelected;
+            }
+
             Customer customer = new Customer();
             customer.setId(userLoggedIn.getId());
             customer.setUsername(userLoggedIn.getUsername());
@@ -72,8 +84,24 @@ public class AddUpdatePetActivity extends AppCompatActivity {
             animalToupdate.setSex(this.editTextAddUpdatePetSex.getText().toString());
             animalToupdate.setName(this.editTextAddUpdatePetName.getText().toString());
             animalToupdate.setSpecie(this.editTextAddUpdatePetSpecie.getText().toString());
-            animalService.updateAnimal(animalToupdate);
-            this.back();
+
+            AnimalValidator validator = new AnimalValidator();
+            HashMap<String, Object> elements = new HashMap<>();
+            elements.put("editTextAddUpdatePetSex", editTextAddUpdatePetSex);
+            elements.put("editTextAddUpdatePetName", editTextAddUpdatePetName);
+            elements.put("editTextAddUpdatePetSpecie", editTextAddUpdatePetSpecie);
+            Boolean hasError = validator.validate(animalToupdate, elements);
+            if (hasError.equals(Boolean.FALSE)){
+                if (Boolean.FALSE.equals(isNew)){
+                    animalService.updateAnimal(animalToupdate);
+                }
+                else{
+                    animalService.createAnimal(animalToupdate);
+                }
+
+                this.back();
+            }
+
 
         }
         catch (ConnectionError e){
