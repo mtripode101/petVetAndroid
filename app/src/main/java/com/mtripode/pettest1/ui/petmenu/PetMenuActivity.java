@@ -4,22 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
+import com.mtripode.pettest1.adapters.AnimalAdapter;
 import com.mtripode.pettest1.entity.Animal;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.service.AnimalServiceImpl;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.utils.SessionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 
 public class PetMenuActivity extends AppCompatActivity {
 
     private Customer userLoggedIn;
+    private ListView listAnimalsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,18 @@ public class PetMenuActivity extends AppCompatActivity {
                 buttonRemovePet(v);
             }
         });
+
+        listAnimalsView = (ListView) findViewById(R.id.listAnimalsView);
+
+        AnimalServiceImpl animalService = new AnimalServiceImpl();
+        Set<Animal> animals = animalService.getAnimalsByOwner(this.userLoggedIn);
+        this.userLoggedIn.getAnimals().clear();
+        this.userLoggedIn.getAnimals().addAll(animals);
+
+        ArrayList<Animal> arrayOfpet = new ArrayList<Animal>();
+        arrayOfpet.addAll(animals);
+        AnimalAdapter animalAdapter = new AnimalAdapter(this,arrayOfpet);
+        listAnimalsView.setAdapter(animalAdapter);
     }
 
     public void buttonAddModifyPet (View view){
@@ -61,8 +78,6 @@ public class PetMenuActivity extends AppCompatActivity {
 
     public void buttonRemovePet (View view){
         Toast.makeText(this.getApplicationContext(), "Remove", 2000).show();
-        AnimalServiceImpl animalService = new AnimalServiceImpl();
-        Set<Animal> animals = animalService.getAnimalsByOwner(this.userLoggedIn);
 
     }
 }
