@@ -35,4 +35,8 @@
     <string name="petMenu_remove_pet">Remove</string>
     <string name="addupdatePet_save">Save</string>
     <string name="addupdatePet_back">Back</string>
+    <string name="addupdatePetName">Name</string>
+    <string name="addupdatePetSex">Sex</string>
+    <string name="addupdatePetSpecie">Specie</string>
+    <string name="addupdatePetDatebirth">Birthday</string>
 </resources>

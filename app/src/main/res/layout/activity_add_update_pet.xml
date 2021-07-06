@@ -13,6 +13,37 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layoutName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextAddUpdatePetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/addupdatePetName"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextAddUpdatePetSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/addupdatePetSex"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextAddUpdatePetSpecie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/addupdatePetSpecie"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/layoutButtonAddupdatePet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
