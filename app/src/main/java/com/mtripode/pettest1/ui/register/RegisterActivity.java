@@ -1,5 +1,6 @@
 package com.mtripode.pettest1.ui.register;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,8 @@ import com.mtripode.pettest1.service.RestInterface;
 import com.mtripode.pettest1.ui.login.LoginActivity;
 import com.mtripode.pettest1.validators.CustomerValidator;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,6 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView textViewCustomerRegisterBirthday;
     private CheckBox registerDoctorCheckBox;
     private CustomerValidator customerValidator;
+    private DatePickerDialog picker;
+    private Date dateBirthday;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -108,7 +114,30 @@ public class RegisterActivity extends AppCompatActivity {
         );
 
         Button customerRegisterGetDateBirthday = findViewById(R.id.customerRegisterGetDateBirthday);
+        customerRegisterGetDateBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(RegisterActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                textViewCustomerRegisterBirthday.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(year, monthOfYear, day);
 
+                                SimpleDateFormat format = new SimpleDateFormat("dd/MMyyyy");
+                                dateBirthday = calendar.getTime();
+
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
     }
 
     public void buttonRegister (View view){
@@ -121,7 +150,8 @@ public class RegisterActivity extends AppCompatActivity {
         elements.put("editEmailAddress",this.editEmailAddress);
         elements.put("editTextCellPhone",this.editTextCellPhone);
         elements.put("editTextCedula", this.editTextCedula);
-
+        elements.put("datebirthday", this.dateBirthday);
+        elements.put("textViewCustomerRegisterBirthday", textViewCustomerRegisterBirthday);
         if (this.registerDoctorCheckBox.isChecked()){
             Doctor doctor = new Doctor();
             setCustomerCommonData(doctor);
@@ -179,5 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
         customer.setLastName(this.textViewLastName.getText().toString());
         customer.setCelphone1(this.editTextCellPhone.getText().toString());
         customer.setEmail(this.editEmailAddress.getText().toString());
+
+        customer.setBirthday(this.dateBirthday);
     }
 }
