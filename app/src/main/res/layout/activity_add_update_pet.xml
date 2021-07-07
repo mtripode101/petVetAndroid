@@ -41,6 +41,27 @@
                 android:ems="10"
                 android:hint="@string/addupdatePetSpecie"
                 android:inputType="textPersonName" />
+
+            <LinearLayout
+                android:id="@+id/petRegisterLayoutDatebirthday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/petRegisterTextDateBirthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/customer_register_datebirth" />
+
+                <Button
+                    android:id="@+id/petRegisterGetButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/customer_register_getbutton_birthday" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

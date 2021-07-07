@@ -58,6 +58,8 @@ public class CustomerValidator implements Validator {
         TextView editPassword = (TextView) elements.get("editPassword");
         TextView editConfirmPassword = (TextView) elements.get("editConfirmPassword");
         TextView editEmailAddress = (TextView) elements.get("editEmailAddress");
+        TextView textViewCustomerRegisterBirthday =  (TextView) elements.get("textViewCustomerRegisterBirthday");
+        Date datebirthday = (Date) elements.get("datebirthday");
 
         if (StringUtils.isEmpty(customer.getUsername())){
             textViewOwner.setError("Este campo es requerido");
@@ -96,6 +98,11 @@ public class CustomerValidator implements Validator {
         if (validateConfirmPassword(customer.getPassword(), customer.getPasswordConfirm())) {
             hasError = true;
             editConfirmPassword.setError("Estos passwords no matchean.");
+        }
+
+        if (datebirthday == null){
+            hasError = true;
+            textViewCustomerRegisterBirthday.setError("Tiene que seleccionar una fecha");
         }
 
         Date birthday = customer.getBirthday();
