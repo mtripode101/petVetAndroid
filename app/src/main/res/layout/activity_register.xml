@@ -101,6 +101,27 @@
                 android:hint="@string/cedula_register"
                 android:inputType="textPersonName" />
 
+            <LinearLayout
+                android:id="@+id/layoutCalendarCustomRegister"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewCustomerRegisterBirthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/customer_register_datebirth" />
+
+                <Button
+                    android:id="@+id/customerRegisterGetDateBirthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/customer_register_getbutton_birthday" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

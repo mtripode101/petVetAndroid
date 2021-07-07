@@ -1,9 +1,10 @@
 package com.mtripode.pettest1.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-public class Customer {
+public class Customer implements Serializable {
     private Long id;
 
     public Long getId() {

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
@@ -46,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editEmailAddress;
     private EditText editTextCellPhone;
     private EditText editTextCedula;
+    private TextView textViewCustomerRegisterBirthday;
     private CheckBox registerDoctorCheckBox;
     private CustomerValidator customerValidator;
     @Override
@@ -66,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         this.editTextCedula = findViewById(R.id.editTextCedula);
         this.editTextCedula.setVisibility(View.INVISIBLE);
         this.registerDoctorCheckBox = findViewById(R.id.registerDoctorCheckBox);
+        this.textViewCustomerRegisterBirthday = findViewById(R.id.textViewCustomerRegisterBirthday);
         this.customerValidator = new CustomerValidator();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -103,6 +106,9 @@ public class RegisterActivity extends AppCompatActivity {
            }
        }
         );
+
+        Button customerRegisterGetDateBirthday = findViewById(R.id.customerRegisterGetDateBirthday);
+
     }
 
     public void buttonRegister (View view){
