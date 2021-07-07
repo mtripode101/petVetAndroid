@@ -76,7 +76,7 @@ public class AddUpdatePetActivity extends AppCompatActivity {
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 petRegisterTextDateBirthday.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 Calendar calendar = Calendar.getInstance();
-                                calendar.set(year, monthOfYear, day);
+                                calendar.set(year, monthOfYear+1, dayOfMonth);
 
                                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                 dateBirthday = calendar.getTime();
