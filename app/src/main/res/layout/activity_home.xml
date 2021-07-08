@@ -2,15 +2,15 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:onClick="buttonPet"
     tools:context=".ui.home.HomeActivity">
 
     <LinearLayout
         android:id="@+id/buttonsHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -21,7 +21,7 @@
 
             <EditText
                 android:id="@+id/editTextTextPersonName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -31,9 +31,9 @@
 
         <LinearLayout
             android:id="@+id/ButtonsSectoin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/buttonAnimals"
@@ -41,6 +41,12 @@
                 android:layout_height="match_parent"
                 android:onClick="buttonPet"
                 android:text="@string/home_button_pet" />
+
+            <Button
+                android:id="@+id/buttonHomeBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/addupdatePet_back" />
         </LinearLayout>
 
     </LinearLayout>

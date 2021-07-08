@@ -22,4 +22,8 @@ public class SessionUtils {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    public void logout (){
+        this.customer = new Customer();
+    }
 }

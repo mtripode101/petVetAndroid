@@ -46,6 +46,16 @@ public class HomeActivity extends AppCompatActivity {
                 buttonPet(v);
             }
         });
+
+        Button buttonHomeBack = findViewById(R.id.buttonHomeBack);
+        buttonHomeBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SessionUtils.getInstance().logout();
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void buttonPet (View view){
