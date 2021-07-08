@@ -138,6 +138,13 @@
                 android:enabled="true"
                 android:onClick="buttonRegister"
                 android:text="Register" />
+
+            <Button
+                android:id="@+id/buttonCustomerRegBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/addupdatePet_back" />
         </LinearLayout>
 
     </LinearLayout>
