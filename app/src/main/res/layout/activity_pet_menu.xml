@@ -28,6 +28,13 @@
             android:layout_weight="1"
             android:text="@string/petMenu_remove_pet" />
 
+        <Button
+            android:id="@+id/buttonPetMenuBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/addupdatePet_back" />
+
     </LinearLayout>
 
     <LinearLayout

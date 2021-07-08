@@ -19,6 +19,7 @@ import com.mtripode.pettest1.errors.ConnectionError;
 import com.mtripode.pettest1.service.AnimalServiceImpl;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.ui.addupdatepet.AddUpdatePetActivity;
+import com.mtripode.pettest1.ui.home.HomeActivity;
 import com.mtripode.pettest1.ui.register.RegisterActivity;
 import com.mtripode.pettest1.utils.SessionUtils;
 
@@ -76,6 +77,15 @@ public class PetMenuActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 animalSelected = (Animal) parent.getAdapter().getItem(position);
 
+            }
+        });
+
+        Button buttonPetMenuBack = findViewById(R.id.buttonPetMenuBack);
+        buttonPetMenuBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PetMenuActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
     }

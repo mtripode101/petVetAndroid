@@ -41,4 +41,5 @@
     <string name="addupdatePetSex">Sex</string>
     <string name="addupdatePetSpecie">Specie</string>
     <string name="addupdatePetDatebirth">Birthday</string>
+    <string name="login_exit">Exit</string>
 </resources>
