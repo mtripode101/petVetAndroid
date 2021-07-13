@@ -16,7 +16,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer createCustomer(Customer customer) throws ConnectionError {
-        Call<Customer> userCall = HttpUtils.getRestInterface().createEmployee(customer);
+        Call<Customer> userCall = HttpUtils.getRestInterfaceWithTypeAdapter(Customer.class, new CustomerDesrializer()).createEmployee(customer);
         Customer customerRet = null;
         userCall.enqueue(new Callback<Customer>() {
             @Override
@@ -60,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer createDoctorSyn(Doctor doctor) throws ConnectionError {
         {
-            Call<Doctor> userCall = HttpUtils.getRestInterface().createDoctor(doctor);
+            Call<Doctor> userCall = HttpUtils.getRestInterfaceWithTypeAdapter(Customer.class, new CustomerDesrializer()).createDoctor(doctor);
             Doctor doctorRet = null;
 
             try
@@ -82,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer updateCustomerSyn(Customer customer) throws ConnectionError {
         {
-            Call<Customer> userCall = HttpUtils.getRestInterface().udpateEmployee(customer);
+            Call<Customer> userCall = HttpUtils.getRestInterfaceWithTypeAdapter(Customer.class, new CustomerDesrializer()).udpateEmployee(customer);
             Customer customerRet = null;
 
             try
@@ -103,7 +103,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findCustomer(Customer customer) throws ConnectionError {
-        Call<Customer> userCall = HttpUtils.getRestInterface().findCustomer(customer.getEmail());
+        Call<Customer> userCall = HttpUtils.getRestInterfaceWithTypeAdapter(Customer.class, new CustomerDesrializer()).findCustomer(customer.getEmail());
         Customer customerRet = null;
         userCall.enqueue(new Callback<Customer>() {
             @Override

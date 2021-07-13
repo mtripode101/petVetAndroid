@@ -48,8 +48,10 @@ public class CustomerDesrializer implements JsonDeserializer<Customer> {
 
     @SuppressLint("NewApi")
     private void setCommonValues (JsonObject jsonObject, Customer customer){
-        final Long id = jsonObject.get("id").getAsLong();
-        customer.setId(id);
+        if (!this.isNullValue( jsonObject.get("id"))){
+            customer.setId( jsonObject.get("id").getAsLong());
+        }
+
 
         Date birthDate = null;
         try {
