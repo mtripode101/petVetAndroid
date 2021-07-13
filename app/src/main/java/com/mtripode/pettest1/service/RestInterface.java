@@ -48,4 +48,7 @@ public interface RestInterface {
     @POST("rest/animal/remove")
     Call<Animal> removeAnimal(@Body Animal animal);
 
+    @GET("rest/customer/doctors/{username}")
+    Call<Set<Doctor>> findDoctorsByCustomer(@Path("username") String username);
+
 }
