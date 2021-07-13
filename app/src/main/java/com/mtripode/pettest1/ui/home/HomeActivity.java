@@ -17,9 +17,14 @@ import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.entity.Doctor;
+import com.mtripode.pettest1.service.DoctorServiceImpl;
+import com.mtripode.pettest1.ui.customerDoctorsMenu.CustomerDoctorsActivity;
 import com.mtripode.pettest1.ui.login.LoginActivity;
 import com.mtripode.pettest1.ui.petmenu.PetMenuActivity;
 import com.mtripode.pettest1.utils.SessionUtils;
+
+import java.util.Set;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -56,10 +61,26 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        DoctorServiceImpl doctorService = new DoctorServiceImpl();
+        Set<Doctor> doctors = doctorService.getDoctorsByCustomer(this.userLoggedIn);
+
+        Button customerButtonHomeDoctors = findViewById(R.id.customerButtonHomeDoctors);
+        customerButtonHomeDoctors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonDoctor(v);
+            }
+        });
     }
 
     public void buttonPet (View view){
         Intent intent = new Intent(this, PetMenuActivity.class);
+        startActivity(intent);
+    }
+
+    public void buttonDoctor (View view){
+        Intent intent = new Intent(this, CustomerDoctorsActivity.class);
         startActivity(intent);
     }
 }

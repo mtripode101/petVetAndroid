@@ -26,8 +26,10 @@ import android.widget.Toast;
 
 import com.mtripode.pettest1.R;
 import com.mtripode.pettest1.entity.Customer;
+import com.mtripode.pettest1.entity.Doctor;
 import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.ui.home.HomeActivity;
+import com.mtripode.pettest1.ui.home.doctor.HomeDoctorActivity;
 import com.mtripode.pettest1.ui.login.LoginViewModel;
 import com.mtripode.pettest1.ui.login.LoginViewModelFactory;
 import com.mtripode.pettest1.ui.petmenu.PetMenuActivity;
@@ -89,7 +91,13 @@ public class LoginActivity extends AppCompatActivity {
                     if (loginValidator.validate(loginResult.getSuccess().getCustomer(), elements )){
                         if (elements.containsKey(LoginValidator.CUSTOMERTO_LOGGED)){
                             updateUiWithUser(loginResult.getSuccess());
-                            SessionUtils.getInstance().setCustomer((Customer) elements.get(LoginValidator.CUSTOMERTO_LOGGED));
+                            if (elements.get(LoginValidator.CUSTOMERTO_LOGGED) instanceof Doctor){
+                                SessionUtils.getInstance().setCustomer((Doctor) elements.get(LoginValidator.CUSTOMERTO_LOGGED));
+                            }
+                            else{
+                                SessionUtils.getInstance().setCustomer((Customer) elements.get(LoginValidator.CUSTOMERTO_LOGGED));
+                            }
+
                             callHomeActivity();
                         }
                     }
@@ -169,8 +177,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void callHomeActivity (){
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        if (SessionUtils.getInstance().getCustomer() instanceof Doctor){
+            Intent intent = new Intent(this, HomeDoctorActivity.class);
+            startActivity(intent);
+        }
+        else if (SessionUtils.getInstance().getCustomer() instanceof Customer){
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     private void callRegisterActivity (){
