@@ -30,6 +30,7 @@ import com.mtripode.pettest1.service.CustomerServiceImpl;
 import com.mtripode.pettest1.ui.home.HomeActivity;
 import com.mtripode.pettest1.ui.login.LoginViewModel;
 import com.mtripode.pettest1.ui.login.LoginViewModelFactory;
+import com.mtripode.pettest1.ui.petmenu.PetMenuActivity;
 import com.mtripode.pettest1.ui.register.RegisterActivity;
 import com.mtripode.pettest1.utils.SessionUtils;
 import com.mtripode.pettest1.validators.LoginValidator;
@@ -145,6 +146,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 callRegisterActivity();;
+            }
+        });
+
+        Button buttonExit = findViewById(R.id.buttonExit);
+        buttonExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);
             }
         });
     }

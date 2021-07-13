@@ -65,18 +65,24 @@ public class AddUpdatePetActivity extends AppCompatActivity {
         petRegisterGetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
+                int day = 0;
+                int month = 0;
+                int year = 0;
+                Calendar cldr = Calendar.getInstance();
+                if (dateBirthday != null){
+                    cldr.setTime(dateBirthday);
+                }
+
+                day = cldr.get(Calendar.DAY_OF_MONTH);
+                month = cldr.get(Calendar.MONTH);
+                year = cldr.get(Calendar.YEAR);
                 picker = new DatePickerDialog(AddUpdatePetActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 petRegisterTextDateBirthday.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 Calendar calendar = Calendar.getInstance();
-                                calendar.set(year, monthOfYear+1, dayOfMonth);
+                                calendar.set(year, monthOfYear, dayOfMonth);
 
                                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                 dateBirthday = calendar.getTime();
@@ -95,6 +101,13 @@ public class AddUpdatePetActivity extends AppCompatActivity {
             this.editTextAddUpdatePetName.setText(this.animalSelected.getName());
             this.editTextAddUpdatePetSex.setText(this.animalSelected.getSex());
             this.editTextAddUpdatePetSpecie.setText(this.animalSelected.getSpecie());
+            if (this.animalSelected.getBirthday() != null){
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                this.dateBirthday = this.animalSelected.getBirthday();
+                String dateToShow = format.format(this.dateBirthday);
+                petRegisterTextDateBirthday.setText(dateToShow);
+            }
+
         }
     }
 

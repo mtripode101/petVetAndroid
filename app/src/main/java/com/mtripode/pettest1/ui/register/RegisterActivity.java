@@ -138,6 +138,15 @@ public class RegisterActivity extends AppCompatActivity {
                 picker.show();
             }
         });
+
+        Button buttonCustomerRegBack = findViewById(R.id.buttonCustomerRegBack);
+        buttonCustomerRegBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void buttonRegister (View view){

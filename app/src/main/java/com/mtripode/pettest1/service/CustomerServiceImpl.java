@@ -3,6 +3,7 @@ package com.mtripode.pettest1.service;
 import com.mtripode.pettest1.entity.Customer;
 import com.mtripode.pettest1.entity.Doctor;
 import com.mtripode.pettest1.errors.ConnectionError;
+import com.mtripode.pettest1.jsonutils.CustomerDesrializer;
 import com.mtripode.pettest1.utils.HttpUtils;
 
 import java.net.ConnectException;
@@ -144,7 +145,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findCustomerByUserName(Customer customer) throws ConnectionError {
-        Call<Customer> userCall = HttpUtils.getRestInterface().findCustomerByUserName(customer.getUsername());
+        Call<Customer> userCall = HttpUtils.getRestInterfaceWithTypeAdapter(Customer.class, new CustomerDesrializer()).findCustomerByUserName(customer.getUsername());
         Customer customerRet = null;
 
         try
