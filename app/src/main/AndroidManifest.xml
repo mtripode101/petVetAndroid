@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetTest1"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.home.doctor.HomeDoctorActivity"></activity>
+        <activity android:name=".ui.customerDoctorsMenu.CustomerDoctorsActivity"></activity>
+        <activity android:name=".ui.home.doctor.HomeDoctorActivity" />
         <activity android:name=".ui.addupdatepet.AddUpdatePetActivity" />
         <activity android:name=".ui.petmenu.PetMenuActivity" />
         <activity
